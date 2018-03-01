@@ -134,7 +134,7 @@ public class Main {
                 trigramas[j][2] = String.valueOf(message.charAt(i+2));
                 j++;
             }
-            else if (String.valueOf(message.charAt(i)) != String.valueOf(message.charAt(i+1))) {
+            else if (message.charAt(i) != message.charAt(i+1)) {
                 trigramas[j][0] = String.valueOf(message.charAt(i));
                 trigramas[j][1] = String.valueOf(message.charAt(i+1));
                 trigramas[j][2] = "X";
