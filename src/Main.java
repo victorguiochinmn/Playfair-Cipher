@@ -1,17 +1,16 @@
 import java.util.*;
 
 public class Main {
-
     static ArrayList<String> newpass = new ArrayList<String>();
     static ArrayList<String> listpass = new ArrayList<String>();
-
-    //Matrices de cada piso
     static String[][] floor1 = new String [4][4];
     static String[][] floor2 = new String [4][4];
     static String[][] floor3 = new String [4][4];
     static String[][] floor4 = new String [4][4];
+    static int[] primeraLetra= new int[3];
+    static int[] segundaLetra= new int[3];
+    static int[] terceraLetra= new int[3];
 
-    //Revisamos la contrasena para que salga sin letras repetidas
     public static ArrayList<String> checkPass (String password) {
         newpass.add(String.valueOf(password.charAt(0)));
         int k;
@@ -29,10 +28,7 @@ public class Main {
         return newpass;
     }
 
-    //Llenamos todas la matrices con la nueva contrasena y los caracteres restantes
     public static void llenarMatrices(ArrayList<String> passwd) {
-
-        //COLOCAMOS PRIMERO LA CONTRASENA Y RESPETAMOS EL ORDEN DE NUMEROS > LETRAS > SIMBOLOS
         for(int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(passwd.isEmpty())) {
@@ -44,7 +40,6 @@ public class Main {
                 }
             }
         }
-
         for(int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(passwd.isEmpty())) {
@@ -56,7 +51,6 @@ public class Main {
                 }
             }
         }
-
         for(int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(passwd.isEmpty())) {
@@ -68,7 +62,6 @@ public class Main {
                 }
             }
         }
-
         for(int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(passwd.isEmpty())) {
@@ -80,11 +73,8 @@ public class Main {
                 }
             }
         }
-
     }
 
-    //Comparamos los caracteres de nuestra contrasena con el que contiene todos los faltantes
-    //para removerlos y tener una lista mas limpia.
     public static ArrayList<String> preLlenado (ArrayList<String> passwd) {
         for (int i= 0 ; i < passwd.size();i++) {
             for (int j=0; j< listpass.size(); j++){
@@ -96,8 +86,6 @@ public class Main {
         return listpass;
     }
 
-    //En esta funcion se crean lo trigramas del mensaje introducido
-    //Estos se almacenan en la matriz "trigramas"
     public static String[][] crearTrigramas(String message) {
         int j = 0;
         String[][] trigramas = new String[message.length()/2][3];
@@ -151,38 +139,104 @@ public class Main {
                 trigramas[j][2] = "Z";
             }
         }
-        for (int l = 0; l < (message.length()/2); l++) {
-            for (int m = 0; m < 3; m++) {
-                System.out.println(trigramas[l][m]);
-            }
-        }
         return trigramas;
     }
     
-    public static String encriptar(String[][] trigramas){
-        
-        
+    public static void encriptar(String[][] trigramas){
+        String encryptedText="";
+        for (int i =0 ; i < trigramas.length;i++){
+            primeraLetra=encontrarPosicion(trigramas[i][0]);
+            segundaLetra=encontrarPosicion(trigramas[i][1]);
+            terceraLetra=encontrarPosicion(trigramas[i][2]);
+            if(terceraLetra[0]==1){
+                encryptedText+=floor1[primeraLetra[1]][segundaLetra[2]];
+            } else if(terceraLetra[0]==2){
+                encryptedText+=floor2[primeraLetra[1]][segundaLetra[2]];
+            } else if(terceraLetra[0]==3){
+                encryptedText+=floor3[primeraLetra[1]][segundaLetra[2]];
+            }
+            if(primeraLetra[0]==1){
+                encryptedText+=floor1[segundaLetra[1]][terceraLetra[2]];
+            } else if(primeraLetra[0]==2){
+                encryptedText+=floor2[segundaLetra[1]][terceraLetra[2]];
+            } else if(primeraLetra[0]==3){
+                encryptedText+=floor3[segundaLetra[1]][terceraLetra[2]];
+            }
+            if(segundaLetra[0]==1){
+                encryptedText+=floor1[terceraLetra[1]][primeraLetra[2]];
+            } else if(segundaLetra[0]==2){
+                encryptedText+=floor2[terceraLetra[1]][primeraLetra[2]];
+            } else if(segundaLetra[0]==3){
+                encryptedText+=floor3[terceraLetra[1]][primeraLetra[2]];
+            }
+        }
+        System.out.println(encryptedText);
+    }
+    
+    public static int[] encontrarPosicion(String letra){
+        boolean encontrado=false;
+        int[] posicion= new int[3];
+        for(int i=0; i <4;i++){
+            for (int j=0;j<4;j++){
+                if(floor1[i][j].equals(letra)){
+                    encontrado=true;
+                    posicion[0]=1;
+                    posicion[1]=i;
+                    posicion[2]=j;
+                }
+            }
+        }
+        if(encontrado==false){
+            for(int i=0; i <4;i++){
+                for (int j=0;j<4;j++){
+                    if(floor2[i][j].equals(letra)){
+                        encontrado=true;
+                        posicion[0]=2;
+                        posicion[1]=i;
+                        posicion[2]=j;
+                    }
+                }
+            }
+        } else if(encontrado==false){
+            for(int i=0; i <4;i++){
+                for (int j=0;j<4;j++){
+                    if(floor3[i][j].equals(letra)){
+                        encontrado=true;
+                        posicion[0]=3;
+                        posicion[1]=i;
+                        posicion[2]=j;
+                    }
+                }
+            }
+        } else {
+            if(encontrado==false){
+                for(int i=0; i <4;i++){
+                    for (int j=0;j<4;j++){
+                        if(floor4[i][j].equals(letra)){
+                            encontrado=true;
+                            posicion[0]=4;
+                            posicion[1]=i;
+                            posicion[2]=j;
+                        }
+                    }
+                }
+            }
+        }
+        return posicion;
     }
 
     public static void main(String[] args) {
 
-        //Obtenemos todos los caracteres necesarios con base al codigo ascii
-
-        //LETRAS
         for(int i=48; i < 58; i++) {
             char  letter = (char) i ;
             String letter2 = String.valueOf(letter);
             listpass.add(letter2);
         }
-
-        //NUMEROS
         for(int i=65; i < 91; i++) {
             char  number = (char) i ;
             String number2 = String.valueOf(number);
             listpass.add(number2);
         }
-
-        //SIMBOLOS
         for(int i=33; i < 125; i++) {
             if (i >= 33 && i < 48) {
                 char  simbols = (char) i ;
@@ -205,18 +259,11 @@ public class Main {
                 listpass.add(simbols2);
             }
         }
-
         Scanner scanner = new Scanner(System.in);
-
-        //Leemos del usuario el mensaje que desea encriptar
         System.out.println("Ingrese el mensaje que desea encriptar");
         String message = scanner.nextLine().toUpperCase();
-
-        //Leemos la contrasena con la que podra acceder al mensaje
         System.out.println("Ingrese una contrasena");
         String password = scanner.nextLine().toUpperCase();
-
-
         ArrayList<String> passwd = checkPass(password);
         listpass =(preLlenado(passwd));
         llenarMatrices(passwd);
