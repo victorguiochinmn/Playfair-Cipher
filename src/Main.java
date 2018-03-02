@@ -145,29 +145,38 @@ public class Main {
     public static void encriptar(String[][] trigramas){
         String encryptedText="";
         for (int i =0 ; i < trigramas.length;i++){
-            primeraLetra=encontrarPosicion(trigramas[i][0]);
-            segundaLetra=encontrarPosicion(trigramas[i][1]);
-            terceraLetra=encontrarPosicion(trigramas[i][2]);
-            if(terceraLetra[0]==1){
-                encryptedText+=floor1[primeraLetra[1]][segundaLetra[2]];
-            } else if(terceraLetra[0]==2){
-                encryptedText+=floor2[primeraLetra[1]][segundaLetra[2]];
-            } else if(terceraLetra[0]==3){
-                encryptedText+=floor3[primeraLetra[1]][segundaLetra[2]];
-            }
-            if(primeraLetra[0]==1){
-                encryptedText+=floor1[segundaLetra[1]][terceraLetra[2]];
-            } else if(primeraLetra[0]==2){
-                encryptedText+=floor2[segundaLetra[1]][terceraLetra[2]];
-            } else if(primeraLetra[0]==3){
-                encryptedText+=floor3[segundaLetra[1]][terceraLetra[2]];
-            }
-            if(segundaLetra[0]==1){
-                encryptedText+=floor1[terceraLetra[1]][primeraLetra[2]];
-            } else if(segundaLetra[0]==2){
-                encryptedText+=floor2[terceraLetra[1]][primeraLetra[2]];
-            } else if(segundaLetra[0]==3){
-                encryptedText+=floor3[terceraLetra[1]][primeraLetra[2]];
+            if(trigramas[i][0]!=null){
+                primeraLetra=encontrarPosicion(trigramas[i][0]);
+                segundaLetra=encontrarPosicion(trigramas[i][1]);
+                terceraLetra=encontrarPosicion(trigramas[i][2]);
+                if(terceraLetra[0]==1){
+                    encryptedText+=floor1[primeraLetra[1]][segundaLetra[2]];
+                } else if(terceraLetra[0]==2){
+                    encryptedText+=floor2[primeraLetra[1]][segundaLetra[2]];
+                } else if(terceraLetra[0]==3){
+                    encryptedText+=floor3[primeraLetra[1]][segundaLetra[2]];
+                } else if(terceraLetra[0]==4){
+                    encryptedText+=floor4[primeraLetra[1]][segundaLetra[2]];
+                } 
+                if(primeraLetra[0]==1){
+                    encryptedText+=floor1[segundaLetra[1]][terceraLetra[2]];
+                } else if(primeraLetra[0]==2){
+                    encryptedText+=floor2[segundaLetra[1]][terceraLetra[2]];
+                } else if(primeraLetra[0]==3){
+                    encryptedText+=floor3[segundaLetra[1]][terceraLetra[2]];
+                }else if(primeraLetra[0]==4){
+                    encryptedText+=floor4[segundaLetra[1]][terceraLetra[2]];
+                }
+                if(segundaLetra[0]==1){
+                    encryptedText+=floor1[terceraLetra[1]][primeraLetra[2]];
+                } else if(segundaLetra[0]==2){
+                    encryptedText+=floor2[terceraLetra[1]][primeraLetra[2]];
+                } else if(segundaLetra[0]==3){
+                    encryptedText+=floor3[terceraLetra[1]][primeraLetra[2]];
+                } else if(primeraLetra[0]==4){
+                    encryptedText+=floor4[terceraLetra[1]][primeraLetra[2]];
+                }
+                
             }
         }
         System.out.println(encryptedText);
@@ -268,5 +277,11 @@ public class Main {
         listpass =(preLlenado(passwd));
         llenarMatrices(passwd);
         encriptar(crearTrigramas(message));
+        /*String[][] aiuda= crearTrigramas(message);
+        for (int i=0;i < aiuda.length;i++){
+            for (int j=0;j< aiuda[i].length;j++){
+                System.out.println(aiuda[i][j]);
+            }
+        }*/
     }
 }
