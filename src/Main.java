@@ -81,31 +81,6 @@ public class Main {
             }
         }
 
-        //IMPRIMIMOS LAS MATRICES PARA REVISAR SU LLENADO
-        for (int l = 0; l < 4; l++) {
-            for (int m = 0; m < 4; m++) {
-                System.out.println(floor1[l][m]);
-            }
-        }
-
-        for (int l = 0; l < 4; l++) {
-            for (int m = 0; m < 4; m++) {
-                System.out.println(floor2[l][m]);
-            }
-        }
-
-        for (int l = 0; l < 4; l++) {
-            for (int m = 0; m < 4; m++) {
-                System.out.println(floor3[l][m]);
-            }
-        }
-
-        for (int l = 0; l < 4; l++) {
-            for (int m = 0; m < 4; m++) {
-                System.out.println(floor4[l][m]);
-            }
-        }
-
     }
 
     //Comparamos los caracteres de nuestra contrasena con el que contiene todos los faltantes
@@ -118,7 +93,6 @@ public class Main {
                 }
             }
         }
-        System.out.println(listpass);
         return listpass;
     }
 
@@ -128,33 +102,66 @@ public class Main {
         int j = 0;
         String[][] trigramas = new String[message.length()/2][3];
         for (int i=0; i < message.length(); i = i+3) {
-            if (message.charAt(i) != message.charAt(i+1) && message.charAt(i+1) != message.charAt(i+2)) {
-                trigramas[j][0] = String.valueOf(message.charAt(i));
-                trigramas[j][1] = String.valueOf(message.charAt(i+1));
-                trigramas[j][2] = String.valueOf(message.charAt(i+2));
-                j++;
+            if (!((i+2) >= message.length())){
+                if (message.charAt(i) != message.charAt(i+1) && message.charAt(i+1) != message.charAt(i+2)) {
+                    if(message.charAt(i) != message.charAt(i+2)){
+                        trigramas[j][0] = String.valueOf(message.charAt(i));
+                        trigramas[j][1] = String.valueOf(message.charAt(i+1));
+                        trigramas[j][2] = String.valueOf(message.charAt(i+2));
+                        j++;
+                    } else {
+                        trigramas[j][0] = String.valueOf(message.charAt(i));
+                        trigramas[j][1] = String.valueOf(message.charAt(i+1));
+                        trigramas[j][2] = "X";
+                        i--;
+                        j++;
+                    }
+                } else if (message.charAt(i) != message.charAt(i+1)) {
+                    trigramas[j][0] = String.valueOf(message.charAt(i));
+                    trigramas[j][1] = String.valueOf(message.charAt(i+1));
+                    trigramas[j][2] = "X";
+                    i--;
+                    j++;
+                } else {
+                    trigramas[j][0] = String.valueOf(message.charAt(i));
+                    trigramas[j][1] = "X";
+                    trigramas[j][2] = String.valueOf(message.charAt(i+1));
+                    i--;
+                    j++;
+                }
             }
-            else if (message.charAt(i) != message.charAt(i+1)) {
-                trigramas[j][0] = String.valueOf(message.charAt(i));
-                trigramas[j][1] = String.valueOf(message.charAt(i+1));
-                trigramas[j][2] = "X";
-                i--;
-                j++;
+            if ( ((i+2) >= message.length()) &&  !((i+1) >= message.length())){
+                if (message.charAt(i) != message.charAt(i+1)) {
+                    trigramas[j][0] = String.valueOf(message.charAt(i));
+                    trigramas[j][1] = String.valueOf(message.charAt(i+1));
+                    trigramas[j][2] = "X";
+                    i--;
+                    j++;
+                } else {
+                    trigramas[j][0] = String.valueOf(message.charAt(i));
+                    trigramas[j][1] = "X";
+                    trigramas[j][2] = String.valueOf(message.charAt(i+1));
+                    i--;
+                    j++;
+                }
             }
-            else {
+            if ( ((i+2) >= message.length()) &&  ((i+1) >= message.length())){
                 trigramas[j][0] = String.valueOf(message.charAt(i));
                 trigramas[j][1] = "X";
-                trigramas[j][2] = String.valueOf(message.charAt(i+1));
-                i--;
-                j++;
+                trigramas[j][2] = "Z";
             }
         }
-        for (int l = 0; l < (message.length()/2) +1; l++) {
+        for (int l = 0; l < (message.length()/2); l++) {
             for (int m = 0; m < 3; m++) {
                 System.out.println(trigramas[l][m]);
             }
         }
         return trigramas;
+    }
+    
+    public static String encriptar(String[][] trigramas){
+        
+        
     }
 
     public static void main(String[] args) {
@@ -213,6 +220,6 @@ public class Main {
         ArrayList<String> passwd = checkPass(password);
         listpass =(preLlenado(passwd));
         llenarMatrices(passwd);
-        crearTrigramas(message);
+        encriptar(crearTrigramas(message));
     }
 }
