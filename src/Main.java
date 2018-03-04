@@ -149,7 +149,17 @@ public class Main {
                 primeraLetra=encontrarPosicion(trigramas[i][0]);
                 segundaLetra=encontrarPosicion(trigramas[i][1]);
                 terceraLetra=encontrarPosicion(trigramas[i][2]);
-                if(terceraLetra[0]==1){
+                System.out.print(primeraLetra[0]+"\t");
+                System.out.print(primeraLetra[1]+"\t");
+                System.out.print(primeraLetra[2]+"\n");
+                System.out.print(segundaLetra[0]+"\t");
+                System.out.print(segundaLetra[1]+"\t");
+                System.out.print(segundaLetra[2]+"\n");
+                System.out.print(terceraLetra[0]+"\t");
+                System.out.print(terceraLetra[1]+"\t");
+                System.out.print(terceraLetra[2]+"\n");
+                System.out.print("===========\n");
+                /*if(terceraLetra[0]==1){
                     encryptedText+=floor1[primeraLetra[1]][segundaLetra[2]];
                 } else if(terceraLetra[0]==2){
                     encryptedText+=floor2[primeraLetra[1]][segundaLetra[2]];
@@ -175,11 +185,11 @@ public class Main {
                     encryptedText+=floor3[terceraLetra[1]][primeraLetra[2]];
                 } else if(primeraLetra[0]==4){
                     encryptedText+=floor4[terceraLetra[1]][primeraLetra[2]];
-                }
+                }*/
                 
             }
         }
-        System.out.println(encryptedText);
+        //System.out.println(encryptedText);}
     }
     
     public static int[] encontrarPosicion(String letra){
@@ -206,7 +216,8 @@ public class Main {
                     }
                 }
             }
-        } else if(encontrado==false){
+        } 
+        if(encontrado==false){
             for(int i=0; i <4;i++){
                 for (int j=0;j<4;j++){
                     if(floor3[i][j].equals(letra)){
@@ -217,19 +228,17 @@ public class Main {
                     }
                 }
             }
-        } else {
-            if(encontrado==false){
+        } 
+        if(encontrado==false){
                 for(int i=0; i <4;i++){
                     for (int j=0;j<4;j++){
                         if(floor4[i][j].equals(letra)){
-                            encontrado=true;
                             posicion[0]=4;
                             posicion[1]=i;
                             posicion[2]=j;
                         }
                     }
                 }
-            }
         }
         return posicion;
     }
@@ -277,11 +286,5 @@ public class Main {
         listpass =(preLlenado(passwd));
         llenarMatrices(passwd);
         encriptar(crearTrigramas(message));
-        /*String[][] aiuda= crearTrigramas(message);
-        for (int i=0;i < aiuda.length;i++){
-            for (int j=0;j< aiuda[i].length;j++){
-                System.out.println(aiuda[i][j]);
-            }
-        }*/
     }
 }
